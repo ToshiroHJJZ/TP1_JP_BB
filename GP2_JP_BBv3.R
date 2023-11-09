@@ -20,7 +20,7 @@ paste('standard deviation',sd(dataset$salary_in_usd))
 paste('standard deviation',sd(dataset$remote_ratio))
 paste('standard deviation',sd(dataset$work_year))
 
-#install.packages('psych')
+install.packages('psych')
 library(psych)
 describe(dataset)
 
@@ -34,6 +34,8 @@ table(dataset$company_location)
 table(dataset$company_size)
 
 #barplots
+install.packages('ggplot2')
+library(ggplot2)
 ggplot(data=dataset,
        aes(x=experience_level))+
   geom_bar()+
@@ -89,15 +91,19 @@ ggplot(data=dataset,
 
 # Target variable and relevant predictor variables.
 ggplot(data=dataset,
-       aes(x=salary_in_usd))+
-  geom_abline(fill='lightblue')+
+       aes(x=salary_in_usd, y = job_title))+
+  geom_abline()+
   labs(title='Line regression of Job Titles and USD income',
        x='Salary in USD',
        y= 'Job Title')
 
-## Target variable: Job Title. Predictor variables: salary_in_usd and/or salary_in_euro
+model <- lm(salary_in_usd~job_title, data=dataset)
+res <- resid(model)
 
-# Linear regression 
+## Target variable: Salary. Predictor variables: salary_in_usd
+
+library(psych)
+psych::describe(dataset)
 
 # Interpretation with coefficients
 
@@ -105,12 +111,7 @@ ggplot(data=dataset,
 
 # R square and p value
 
-# 
+#####
 
-
-
-
-
-
-
+cor(dataset$salary, dataset$salary_in_usd)
 
